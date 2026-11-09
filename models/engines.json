@@ -1,0 +1,124 @@
+{
+  "generated_by": "cad/build_engines.py",
+  "freecad": "1.1.3",
+  "engines": [
+    {
+      "id": "car",
+      "title": "Inline-four",
+      "kind": "petrol",
+      "n": 4,
+      "bore": 86,
+      "stroke": 86,
+      "rod": 145,
+      "firing": "1-3-4-2",
+      "cycle": "Four-stroke, spark ignition",
+      "use": "Car",
+      "summary": "Four cylinders in a row, two camshafts overhead. Pistons 1 and 4 rise while 2 and 3 fall, so the crank sees a power stroke every half turn.",
+      "displacement_cc": 1998,
+      "bore_stroke_ratio": 1.0,
+      "rod_ratio": 3.37,
+      "parts": 28,
+      "groups": [
+        "Accessories",
+        "Air",
+        "Exhaust",
+        "Ignition",
+        "Lubrication",
+        "Rotating assembly",
+        "Structure",
+        "Valvetrain"
+      ],
+      "triangles": 45534,
+      "glb_bytes": 1182400,
+      "envelope_mm": [
+        535,
+        443,
+        588
+      ],
+      "files": {
+        "glb": "models/car.glb",
+        "step": "models/car.step",
+        "stl": "models/car.stl"
+      }
+    },
+    {
+      "id": "aircraft",
+      "title": "Nine-cylinder radial",
+      "kind": "radial",
+      "n": 9,
+      "bore": 140,
+      "stroke": 152,
+      "rod": 280,
+      "firing": "1-3-5-7-9-2-4-6-8",
+      "cycle": "Four-stroke, air-cooled, dual ignition",
+      "use": "Aircraft",
+      "summary": "Nine finned cylinders in a star around one crankpin, turning the propeller directly. An odd count lets every other cylinder fire, two turns per cycle.",
+      "displacement_cc": 21059,
+      "bore_stroke_ratio": 0.921,
+      "rod_ratio": 3.68,
+      "parts": 79,
+      "groups": [
+        "Air",
+        "Cylinders",
+        "Exhaust",
+        "Ignition",
+        "Propeller drive",
+        "Rotating assembly",
+        "Structure",
+        "Valvetrain"
+      ],
+      "triangles": 185916,
+      "glb_bytes": 4470736,
+      "envelope_mm": [
+        2036,
+        870,
+        1764
+      ],
+      "files": {
+        "glb": "models/aircraft.glb",
+        "step": "models/aircraft.step",
+        "stl": "models/aircraft.stl"
+      }
+    },
+    {
+      "id": "diesel",
+      "title": "Turbo inline-six diesel",
+      "kind": "diesel",
+      "n": 6,
+      "bore": 107,
+      "stroke": 124,
+      "rod": 192,
+      "firing": "1-5-3-6-2-4",
+      "cycle": "Four-stroke, compression ignition",
+      "use": "Truck",
+      "summary": "Six cylinders in a row: a layout whose shaking forces cancel by themselves, with no balance shafts. Compression alone ignites the fuel; a turbo recycles exhaust energy into charge air.",
+      "displacement_cc": 6690,
+      "bore_stroke_ratio": 0.863,
+      "rod_ratio": 3.1,
+      "parts": 37,
+      "groups": [
+        "Accessories",
+        "Air",
+        "Exhaust",
+        "Fuel",
+        "Lubrication",
+        "Rotating assembly",
+        "Structure",
+        "Turbocharger",
+        "Valvetrain"
+      ],
+      "triangles": 56406,
+      "glb_bytes": 1488644,
+      "envelope_mm": [
+        997,
+        620,
+        825
+      ],
+      "files": {
+        "glb": "models/diesel.glb",
+        "step": "models/diesel.step",
+        "stl": "models/diesel.stl"
+      }
+    }
+  ]
+}
