@@ -48,6 +48,16 @@ async function boot() {
     holders.push(holder);
     fires.push(fireAngles(byId[rig.id], rig.kin));
     rig.engine = byId[rig.id];
+    const prop = rig.parts.get('propeller');
+    if (prop) {
+      // An invisible disc the size of the blade sweep, so layout reserves room for the turning propeller.
+      const pos = prop.geometry.attributes.position;
+      let r = 0, z = 0;
+      for (let k = 0; k < pos.count; k++) { r = Math.max(r, Math.hypot(pos.getX(k), pos.getY(k))); z += pos.getZ(k); }
+      const disc = new THREE.Mesh(new THREE.CircleGeometry(r, 48), new THREE.MeshBasicMaterial({ visible: false }));
+      disc.position.z = z / pos.count;
+      prop.parent.add(disc);
+    }
     rig.setXray(true, 0.3); // ghost the castings so the moving parts, and the firing glow, show
     makeTag(rig, i);
   });
@@ -91,29 +101,39 @@ function layout() {
   const byId = Object.fromEntries(rigs.map((r, i) => [r.id, holders[i]]));
   // Place: reset, then put each engine's bounding box on its shelf.
   let s = 0.004; // world metres per pixel, refined below
-  const gapX = portrait ? 1.25 : 0.42;
+  const gapX = portrait ? 1.7 : 0.42;
   for (let pass = 0; pass < 3; pass++) {
     const labelGap = (portrait ? 136 : 74) * s;
     let y = 0;
     for (let si = shelves.length - 1; si >= 0; si--) {
+      // Line the shelf up along the camera's horizontal axis (RIGHT), not world x, so the
+      // floor's front edge projects level on screen and every engine stands on the same line.
       let x = 0, tallest = 0;
       for (const id of shelves[si]) {
         const h = byId[id];
         h.position.set(0, 0, 0);
-        h.updateMatrixWorld(true);
-        const b = new THREE.Box3().setFromObject(h);
-        const size = b.getSize(new THREE.Vector3());
-        h.position.set(x - b.min.x, y - b.min.y, -(b.min.z + b.max.z) / 2);
-        x += size.x + gapX;
-        tallest = Math.max(tallest, size.y);
+        const [r0, r1, f0, f1, b] = extent(h);
+        h.position.copy(RIGHT).multiplyScalar(x - r0).addScaledVector(FWD, -(f0 + f1) / 2);
+        h.position.y = y - b.min.y;
+        x += (r1 - r0) + gapX;
+        tallest = Math.max(tallest, b.max.y - b.min.y);
       }
       const shift = (x - gapX) / 2;
-      for (const id of shelves[si]) byId[id].position.x -= shift;
+      for (const id of shelves[si]) byId[id].position.addScaledVector(RIGHT, -shift);
       y += tallest + labelGap;
     }
     s = fit(W, H, portrait);
   }
   placeOverlays(W, H, shelves, byId);
+}
+
+// Camera-horizontal and depth directions in the ground plane.
+const RIGHT = new THREE.Vector3(VIEW.z, 0, -VIEW.x).normalize();
+const FWD = new THREE.Vector3(VIEW.x, 0, VIEW.z).normalize();
+function extent(h) {
+  const cs = corners(h);
+  const r = cs.map((c) => c.dot(RIGHT)), f = cs.map((c) => c.dot(FWD));
+  return [Math.min(...r), Math.max(...r), Math.min(...f), Math.max(...f), new THREE.Box3().setFromObject(h)];
 }
 
 function corners(obj) {
@@ -131,7 +151,7 @@ function fit(W, H, portrait) {
     const v = c.applyMatrix4(inv);
     x0 = Math.min(x0, v.x); x1 = Math.max(x1, v.x); y0 = Math.min(y0, v.y); y1 = Math.max(y1, v.y);
   }
-  const pad = { l: 12, r: 12, t: 40, b: portrait ? 82 : 116 };
+  const pad = { l: 12, r: 12, t: 40, b: portrait ? 92 : 116 };
   const s = Math.max((x1 - x0) / (W - pad.l - pad.r), (y1 - y0) / (H - pad.t - pad.b));
   const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
   camera.left = cx - (s * W) / 2 - (s * (pad.l - pad.r)) / 2;
@@ -158,7 +178,13 @@ function placeOverlays(W, H, shelves, byId) {
   }
   for (const shelf of shelves) {
     const rs = shelf.map((id) => rects.get(id));
-    const y = Math.max(...rs.map((r) => r.y1)) + 4;
+    // The ground is the floor the shelf stands on (lowest y), drawn along its front edge.
+    // The floor of the shelf, along its front edge (largest depth toward the camera).
+    const ext = shelf.map((id) => extent(byId[id]));
+    const fy = Math.min(...ext.map((e) => e[4].min.y));
+    const front = Math.max(...shelf.map((id, k) => ext[k][3]));
+    const p = new THREE.Vector3().copy(FWD).multiplyScalar(front); p.y = fy;
+    const y = toScreen(p, W, H).y + 2;
     const g = document.createElement('div');
     g.className = 'ground';
     const left = Math.min(...rs.map((r) => r.x0)), right = Math.max(...rs.map((r) => r.x1));
@@ -194,7 +220,7 @@ function tick(now) {
   const deg = (theta * 180 / Math.PI) % 720;
   rigs.forEach((r, i) => { r.update(theta); r.fireGlow(deg, fires[i]); });
   angleEl.textContent = `${Math.floor(deg % 360)}°`;
-  strokeEl.textContent = deg < 360 ? 'first turn of the cycle' : 'second turn of the cycle';
+  strokeEl.textContent = deg < 360 ? 'turn 1 of 2 per cycle' : 'turn 2 of 2 per cycle';
   renderer.render(scene, camera);
   requestAnimationFrame(tick);
 }

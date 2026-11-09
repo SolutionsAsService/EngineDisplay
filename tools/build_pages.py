@@ -144,7 +144,7 @@ def about():
     <li>FreeCAD builds each part with its own origin: pistons at the gudgeon pin, rods at the small end, the crank on its axis.</li>
     <li>Each face is meshed separately, so edges stay crisp, and written to a GLB with one node per part and the crank geometry (radius, rod length, cylinder axes, throw angles) stored in the file.</li>
     <li>In the browser, the pistons and rods are placed every frame by slider-crank geometry, so the animation is the mechanism, not a recorded clip.</li>
-    <li>The same parts are exported as STEP (for any CAD program) and STL; the STL was inspected with the Unified CAD MCP's <code>cad_inspect_stl_geometry</code>: 0 inverted shells on all three; the full integrity check did not run because the meshes exceed the tool's triangle limit.</li>
+    <li>The same parts are exported as STEP (for any CAD program, offered below) and as STL, which is not offered for download (10 to 55 MB) but is rebuilt by the script; the STL was inspected with the Unified CAD MCP's <code>cad_inspect_stl_geometry</code>: 0 inverted shells on all three; the full integrity check did not run because the meshes exceed the tool's triangle limit.</li>
   </ol>
   <h3>Downloads</h3>
   <div class="scroll-x"><table class="spec"><thead><tr><th scope="col">Engine</th><th scope="col">Parts</th><th scope="col">Triangles</th><th scope="col">GLB</th><th scope="col">Files</th></tr></thead><tbody>{rows}</tbody></table></div>
