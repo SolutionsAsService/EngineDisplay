@@ -14,6 +14,8 @@ const camera = new THREE.PerspectiveCamera(35, 1, 0.01, 100);
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
 
+// X-ray opens what hides the moving parts; painted heads stay solid so each engine keeps its colour.
+const SEE_THROUGH = /^(block|cover|oilpan|timingcover|bellhousing|crankcase|barrel\d+|nosecase|accessory)$/;
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 let playing = !reduce, speed = 1, theta = 0, rig, fires, picked = null;
 
@@ -27,7 +29,7 @@ const xr = document.getElementById('xray');
 xr.addEventListener('click', () => {
   const on = xr.getAttribute('aria-pressed') !== 'true';
   xr.setAttribute('aria-pressed', String(on));
-  rig && rig.setXray(on, 0.2);
+  rig && rig.setXray(on, 0.2, SEE_THROUGH);
 });
 
 function resize() {
@@ -45,7 +47,7 @@ async function boot() {
   scene.add(rig.object);
   fires = fireAngles(engine, rig.kin);
   if (id === 'aircraft') rig.object.rotation.y = Math.PI;
-  rig.setXray(xr.getAttribute('aria-pressed') === 'true', 0.2); // start see-through so the mechanism shows
+  rig.setXray(xr.getAttribute('aria-pressed') === 'true', 0.2, SEE_THROUGH); // start see-through so the mechanism shows
   resize();
   frame();
   buildBom();

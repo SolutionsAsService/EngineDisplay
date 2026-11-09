@@ -7,6 +7,8 @@
   --signal: #c8321a;
   --signal-ink: #a3260f;
   --chip: #f6f2e9;
+  /* one identity colour per engine (text-safe shades); red stays for firing */
+  --car: #1b4d9b; --truck: #276433; --aero: #8a5600; --aero-swatch: #e8a00f;
   --display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   --body: 'IBM Plex Sans', system-ui, sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, monospace;
@@ -15,12 +17,12 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --paper: #14130f; --paper-2: #1d1b16; --ink: #ede7da; --ink-2: #b4ac9a; --rule: #4a463b;
-    --signal: #ff5a3a; --signal-ink: #ff7a5e; --chip: #23211b; color-scheme: dark;
+    --signal: #ff5a3a; --signal-ink: #ff7a5e; --chip: #23211b; --car: #7aa8f0; --truck: #6fc27f; --aero: #f2b640; color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --paper: #14130f; --paper-2: #1d1b16; --ink: #ede7da; --ink-2: #b4ac9a; --rule: #4a463b;
-  --signal: #ff5a3a; --signal-ink: #ff7a5e; --chip: #23211b; color-scheme: dark;
+  --signal: #ff5a3a; --signal-ink: #ff7a5e; --chip: #23211b; --car: #7aa8f0; --truck: #6fc27f; --aero: #f2b640; color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -62,7 +64,12 @@ a:hover { color: var(--signal-ink); }
 .tag .cc { display: block; font: 700 clamp(26px, 3.2vw, 46px)/1 var(--display); }
 .tag .nm { display: block; font: 500 13px/1.25 var(--mono); text-transform: uppercase; letter-spacing: .04em; margin-top: 3px; }
 .tag .go { display: inline-block; margin-top: 6px; font: 500 13px/1 var(--mono); color: var(--signal-ink); border-bottom: 1px solid currentColor; padding: 4px 0; }
-.tag:hover .cc { color: var(--signal-ink); }
+.tag:hover .cc { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.tag--car .cc { color: var(--car); } .tag--diesel .cc { color: var(--truck); } .tag--aircraft .cc { color: var(--aero); }
+.tag .nm::before { content: ""; display: inline-block; width: 10px; height: 10px; margin-right: 6px; vertical-align: 0; background: currentColor; }
+.tag--car .nm::before { background: var(--car); } .tag--diesel .nm::before { background: var(--truck); } .tag--aircraft .nm::before { background: var(--aero-swatch); }
+[data-engine="car"] .hud .cc { color: var(--car); } [data-engine="diesel"] .hud .cc { color: var(--truck); } [data-engine="aircraft"] .hud .cc { color: var(--aero); }
+[data-engine="car"] .viewer { box-shadow: inset 0 6px 0 var(--car); } [data-engine="diesel"] .viewer { box-shadow: inset 0 6px 0 var(--truck); } [data-engine="aircraft"] .viewer { box-shadow: inset 0 6px 0 var(--aero-swatch); }
 .ground { position: absolute; height: 0; border-top: 2px solid var(--ink); pointer-events: none; }
 .scalebar { position: absolute; left: 24px; top: 8px; font: 500 12px/1 var(--mono); pointer-events: none; }
 .scalebar i { display: block; height: 8px; border: 2px solid var(--ink); border-top: 0; margin-top: 4px; }

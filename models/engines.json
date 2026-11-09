@@ -29,7 +29,7 @@
         "Valvetrain"
       ],
       "triangles": 45534,
-      "glb_bytes": 1182400,
+      "glb_bytes": 1182848,
       "envelope_mm": [
         535,
         443,
@@ -56,7 +56,7 @@
       "displacement_cc": 21059,
       "bore_stroke_ratio": 0.921,
       "rod_ratio": 3.68,
-      "parts": 79,
+      "parts": 80,
       "groups": [
         "Air",
         "Cylinders",
@@ -67,8 +67,8 @@
         "Structure",
         "Valvetrain"
       ],
-      "triangles": 185916,
-      "glb_bytes": 4470736,
+      "triangles": 163088,
+      "glb_bytes": 4064980,
       "envelope_mm": [
         2036,
         870,
@@ -108,7 +108,7 @@
         "Valvetrain"
       ],
       "triangles": 56406,
-      "glb_bytes": 1488644,
+      "glb_bytes": 1489088,
       "envelope_mm": [
         997,
         620,

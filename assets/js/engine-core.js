@@ -103,9 +103,11 @@ export class Rig {
     this.update(this.theta);
   }
 
-  setXray(on, opacity = 0.12) {
+  // only: optional RegExp narrowing which housings go see-through (the landing ghosts only what hides the pistons).
+  setXray(on, opacity = 0.12, only = null) {
     for (const m of this.parts.values()) {
       if (!m.userData.housing) continue;
+      if (only && !only.test(m.name)) continue;
       m.material.transparent = on;
       m.material.opacity = on ? opacity : 1;
       m.material.depthWrite = !on;

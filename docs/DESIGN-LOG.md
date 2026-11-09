@@ -178,28 +178,27 @@ Andon pulled: no.
 
 | Finding | Resolution |
 |---|---|
-| Krug F1 | ADAPT (M5): CTA shown on mobile |
-| Krug F2 | ADAPT (M5): canvas hit-boxes link to engine pages |
-| Krug F3 | ADAPT (M5): nav reads "Truck" |
-| Krug F4 + Arnheim F5 | ADAPT (M5): portrait gap 6–11 → 35 px |
-| Krug F5 + Arnheim F2 + Arnheim F3 | ADAPT (M5): outline Pause; 18 px clearance |
-| Krug F6 | ADAPT (M5): spinner aluminium |
-| Krug F7 | ADAPT (M5): probe re-run with real fonts |
-| Arnheim F4 | ADAPT (M5): one line on desktop, breaks at full stops on mobile |
-| Debord F3 + Cairo F6 | ADAPT (M5): MCP result stated as measured |
-| Debord F4 + Cairo F7 | ADAPT (M5): both scripts named |
-| Debord F5 + Cairo F4 | ADAPT (M5): "first 70°" |
-| Debord F6 | ADAPT (M5): "a layout" |
-| Cairo F1 | ADAPT (M5): full rebuild and merge guard |
-| Cairo F2 | ADAPT (M5): "across the view"; R2 follow-up DEFERRED |
-| Cairo F3 | ADAPT (M5): envelope from the mesh |
-| Cairo F5 | ADAPT (M5): cap-bolt exception |
-| Arnheim F7 + Arnheim F8 | ADAPT (M6): sweep disc reserved; layout along camera-right; gap 84 px; blade above the rule |
-| Krug F8 | ADAPT (M6): one Pause style |
-| Krug F9 + Arnheim R2 F2 | ADAPT (M6): mobile clearance 8 → 20 px |
-| Debord R2 F7 | ADAPT (M6): "turn 1 of 2 per cycle" on mobile |
-| Debord R2 F8 + Cairo R2 F8 | ADAPT (M6): about.html says STL is not offered (10–55 MB), rebuilt by the script |
-
+| Krug: F1 | ADAPT (M5): CTA shown on mobile |
+| Krug: F2 | ADAPT (M5): canvas hit-boxes link to engine pages |
+| Krug: F3 | ADAPT (M5): nav reads "Truck" |
+| Krug + Arnheim: Krug F4, Arnheim F5 | ADAPT (M5): portrait gap 6–11 → 35 px |
+| Krug + Arnheim: Krug F5, Arnheim F2, Arnheim F3 | ADAPT (M5): outline Pause; 18 px clearance |
+| Krug: F6 | ADAPT (M5): spinner aluminium |
+| Krug: F7 | ADAPT (M5): probe re-run with real fonts |
+| Arnheim: F4 | ADAPT (M5): one line on desktop, breaks at full stops on mobile |
+| Debord + Cairo: Debord F3, Cairo F6 | ADAPT (M5): MCP result stated as measured |
+| Debord + Cairo: Debord F4, Cairo F7 | ADAPT (M5): both scripts named |
+| Debord + Cairo: Debord F5, Cairo F4 | ADAPT (M5): "first 70°" |
+| Debord: F6 | ADAPT (M5): "a layout" |
+| Cairo: F1 | ADAPT (M5): full rebuild and merge guard |
+| Cairo: F2 | ADAPT (M5): "across the view"; R2 follow-up DEFERRED |
+| Cairo: F3 | ADAPT (M5): envelope from the mesh |
+| Cairo: F5 | ADAPT (M5): cap-bolt exception |
+| Arnheim: Arnheim F7, Arnheim F8 | ADAPT (M6): sweep disc reserved; layout along camera-right; gap 84 px; blade above the rule |
+| Krug: F8 | ADAPT (M6): one Pause style |
+| Krug + Arnheim: Krug F9, Arnheim R2 F2 | ADAPT (M6): mobile clearance 8 → 20 px |
+| Debord: Debord R2 F7 | ADAPT (M6): "turn 1 of 2 per cycle" on mobile |
+| Debord + Cairo: Debord R2 F8, Cairo R2 F8 | ADAPT (M6): about.html says STL is not offered (10–55 MB), rebuilt by the script |
 ## 4. Anchor Ledger
 
 | Anchor | Role | Status | Evidence | Note |
@@ -270,3 +269,144 @@ Graph amendment: none to the graph file. Process note: for a 3D landing, the pro
   `MeshPart.meshFromShape(face, LinearDeflection, AngularDeflection=0.25)` cut the radial from 1.48M to 186k triangles.
 - OCCT `BoundBox` on a compound is loose: aircraft Z 1794 against a mesh value of 1764. Use the mesh box for printed envelopes.
 - A partial `build_engines.py car` run used to leave `engines.json` stale. It now merges the index.
+
+## Human grade
+
+- Grade: **B+** (2026-11-09)
+- Owner's words, verbatim: "Site looks good B plus and record to dada and put in portfolio one thing is color looks a lot the same maybe improve"
+- What the grade most likely rewards and punishes: it rewards the live true-scale plate built from real CAD and the
+  engines as the subject of the page. It punishes a palette that reads as one grey family: ghosted castings, steel
+  internals and paper ground, with the only strong hue being the signal red. No panel seat judged colour; Albers
+  (*Interaction of Color*) sits on Arnheim's edges in the graph but was never seated.
+
+# Run 2: colour (Polish)
+
+## 1. Traversal Plan
+
+**Brief.** "color looks a lot the same maybe improve" (owner, with the B+ grade of run 1).
+
+**Mode: Adaptive. Run type: Polish.**
+- Frozen: concept, pages, navigation, layout, type and the signal red.
+- Polish target: colour.
+
+**Bound.** One WHOLE panel round, plus measured fixes after it. This is the conductor's choice: the owner gave no bound.
+
+**Panel.** The Polish minimum (Cairo, Krug, Debord), plus Arnheim as the polish-target seat. He judges colour through
+the graph edge to Albers, *Interaction of Color*. There is no Albers seat file. Dotted pair: Krug ↔ Debord.
+
+**Seed.**
+- Stance: MAYA (kept from run 1).
+- Rule: *Interaction of Color* (Josef Albers), reached through Arnheim's edge "judges color with".
+- Breaker escalated, not new: the true-scale plate, now told apart by colour.
+
+### Frontier
+
+| Candidate | Status |
+|---|---|
+| Identity paint per engine | TAKEN (M7) |
+| Identity in the type | TAKEN (M8) |
+| Ghost less | TAKEN (M9) |
+| One amber per identity | TAKEN (M10) |
+| Show the firing glow in a still | DEFERRED. The glow covers the first 70° of each power stroke by design; a still at another angle cannot show it. |
+
+## 2. Decision Records
+
+**M7: identity paint (Polish: escalates the existing paint device).**
+- Depends on: M1.
+- Each engine gets one hue, as real engines are painted:
+  - car: blue cover, intake and filter
+  - truck: green block and head
+  - aircraft: amber spinner, nose case and a new prop-tips part
+- Red is taken off every model surface. It is left to firing (glow and Power bars), UI signal and links, and the part-pick highlight.
+- Advanced pole: colour as a key across model, numeral and page. Acceptable pole: every identity text colour is ≥ 4.5:1.
+
+**M8: identity in the type.**
+- Depends on: M7.
+- Each tag's cc numeral and swatch takes its engine's colour, and each engine page gets a matching subtitle colour and a 6 px viewer bar.
+
+**M9: ghost less.**
+- Depends on: M4, M7.
+- The landing ghosts only the parts that hide pistons, at 38%, and engine-page X-ray keeps the heads solid. Otherwise the ghosting erased the paint (truck green measured 0.5% before M9, 2.6% after).
+
+**M10: one amber, one blue (ADAPT of M7 after P1).**
+- Depends on: M7, M8.
+- Amber paint deepened from 0.95/0.62/0.05 to 0.80/0.38/0.02, and the nose case painted amber, so the amber gathers at the centre and the render matches the swatch and numeral.
+- Car paint deepened from 0.05/0.24/0.62 to 0.02/0.13/0.48, so it renders near its label colour.
+- Propeller text now says the 2.3 m diameter includes its painted tips.
+
+**Residual diff.**
+- Aircraft part count 79 → 80 (new tips part), triangles 185,916 → 163,088 (the blade loft is now split in two). Both intended.
+- The truck page's chromatic share fell 16.8% → 12.3% (intended). The blue charge pipe, which shared the car's hue, became black. The truck now carries green alone.
+
+## 3. Panel Reports
+
+### Panel, WHOLE, round R1 (Polish P1; screenshots after M7 to M9, real fonts)
+
+| Critic | Anchor used | Observed in the work | Verdict | Requested change |
+|---|---|---|---|---|
+| Critic: Formalist (Arnheim) | *Art and Visual Perception*, "Color"; edge to Albers | Each engine owns a hue, repeated in numeral, swatch and bar. Red is the one signal. The aircraft splits into three yellows; amber sits at the frame's edges. | OBJECT | One amber; more at the nose |
+| Critic: Evidence (Cairo) | *How Charts Lie* | Unstated crop boxes; truck drop undisclosed; legend against render hue mismatch; pick highlight unlisted; stale truckPaint in two GLBs | OBJECT | State boxes; disclose; match hues; rebuild |
+| Critic: Usability (Krug) | *Don't Make Me Think*, ch. 3 and 6 | Car and truck match their tags at a glance; aircraft takes thought (brown numeral, pale paint) | PASS | Shift the aircraft's colour toward the swatch |
+| Critic: Provocateur (Debord) | *The Society of the Spectacle*, §1 and §4 | Tip paint is the one colour that does a job, and its text is honest. Swatch amber against lemon render. Propeller diameter stated for a part without tips. | OBJECT | Match the hues; fix the diameter text |
+
+- Statements of meaning: colour now names the engine.
+- Andon pulled: no.
+
+### Resolutions
+
+| Finding | Resolution |
+|---|---|
+| Arnheim: F3 three yellows | ADAPT (M10): one deeper amber across paint, swatch and numeral |
+| Arnheim: F4 amber at the edges | ADAPT (M10): nose case amber; amber now centred |
+| Krug + Debord + Cairo: aircraft legend against render | ADAPT (M10) |
+| Cairo: F4 car text against sky render | ADAPT (M10): car paint deepened |
+| Cairo: F1, F2 crop boxes | ADAPT: re-measured with stated boxes from saved images (below) |
+| Cairo: F3 truck drop | ADAPT: disclosed in the residual diff |
+| Cairo: F5 pick highlight | ADAPT: listed as a red use (M7). The glow-in-a-still part is DEFERRED (see Frontier). |
+| Cairo: F6 stale truckPaint | ADAPT: all three GLBs rebuilt; materials verified per GLB |
+| Debord: F3 diameter | ADAPT (M10): propeller text says "with their painted tips" |
+
+M10 was applied and measured after P1 but not re-judged. The run is bounded at one round.
+
+## 4. Measurement (2g, after the last edit)
+
+`colour.py` counts object pixels (those differing from the paper) and calls a pixel chromatic at HLS saturation ≥ 0.28
+and lightness 0.12–0.92. The 1280×800 boxes are:
+- landing: 0, 304, 1280, 688
+- engine viewers: 0, 75, 878, 750
+
+"Before" figures come from the run-1 R2 screenshots.
+
+| Page | Before (chromatic; families ≥ 2%) | After |
+|---|---|---|
+| Landing | 8.4%; orange 4.2, blue 2.8 | 17.2%; orange 6.9, yellow 4.0, blue 3.8, green 2.6 |
+| Car | 16.2%; orange 9.8, red 3.5, blue 2.9 | 20.5%; blue 12.6, orange 8.0 |
+| Truck | 16.8%; blue 9.0, orange 6.4 | 12.3%; green 6.0, orange 5.7 |
+| Aircraft | 4.9%; red 2.5, orange 2.5 | 12.6%; orange (amber) 7.8, yellow 4.8 |
+
+**Contrast of the identity text colours.**
+
+| | Car | Truck | Aircraft |
+|---|---|---|---|
+| On paper (light mode) | #1b4d9b 6.48 | #276433 5.66 | #8a5600 4.90 |
+| Dark mode | 7.69 | 8.58 | 10.21 |
+
+**First-screen probe.** Both sizes: tags 20 px clear of the fold, 0 overlaps, no horizontal scroll. No console errors on any page.
+
+## 5. Stop test (run 2)
+
+- **S1.** Met. The one open item is DEFERRED with a reason.
+- **S2.** NOT met. P1 had two minor OBJECTs, ADAPTed in M10 but not re-judged.
+- **S3.** Not met.
+- **S4.** The Polish push is M10: the largest measured refinement, pushed once more. Measured: landing 14.1% → 17.2%, aircraft page 4.9% → 12.6%.
+- **S5.** Met. Krug ↔ Debord seated.
+
+Run 2 is incomplete under its one-round bound. Resume point: a P2 round with Arnheim and Cairo on the M10 state.
+
+## Carry-Forward (run 2)
+
+- Ghosting a painted casting at 30–40% opacity on paper erases its hue. Measured: truck green 0.5% at 42% ghosting,
+  2.6% with the head solid. Ghost only what hides the mechanism.
+- ACES tone mapping and the room environment lift saturated paint toward pastel. A label colour must be checked against
+  the rendered pixel, not the material value. Measured: amber 0.95/0.62/0.05 rendered as lemon (234, 218, 123), so it
+  was deepened to 0.80/0.38/0.02.

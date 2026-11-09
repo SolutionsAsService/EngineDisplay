@@ -58,7 +58,7 @@ async function boot() {
       disc.position.z = z / pos.count;
       prop.parent.add(disc);
     }
-    rig.setXray(true, 0.3); // ghost the castings so the moving parts, and the firing glow, show
+    rig.setXray(true, 0.38, /^(block|oilpan|timingcover|bellhousing|crankcase|barrel\d+)$/); // ghost the castings so the moving parts, and the firing glow, show
     makeTag(rig, i);
   });
   layout();
@@ -68,7 +68,7 @@ async function boot() {
 function makeTag(rig, i) {
   const e = rig.engine;
   const a = document.createElement('a');
-  a.className = 'tag';
+  a.className = `tag tag--${e.id}`;
   a.href = `${e.id}.html`;
   a.setAttribute('aria-label', `${e.title}, ${fmt(e.displacement_cc)} cc: open the ${e.use.toLowerCase()} engine`);
   a.innerHTML = `<span class="cc">${fmt(e.displacement_cc)} cc</span><span class="nm">${e.use} · ${e.n} cyl</span><span class="go">Take it apart →</span>`;

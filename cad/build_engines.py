@@ -48,6 +48,10 @@ MATERIALS = {
     "wood": {"color": (0.45, 0.27, 0.13), "metal": 0.0, "rough": 0.55},
     "olive": {"color": (0.28, 0.32, 0.22), "metal": 0.3, "rough": 0.6},
     "blue": {"color": (0.08, 0.20, 0.45), "metal": 0.3, "rough": 0.45},
+    # One identity paint per engine. Red is kept for the firing glow alone.
+    "carPaint": {"color": (0.02, 0.13, 0.48), "metal": 0.2, "rough": 0.45},
+    "truckPaint": {"color": (0.09, 0.42, 0.18), "metal": 0.15, "rough": 0.5},
+    "aeroAmber": {"color": (0.80, 0.38, 0.02), "metal": 0.1, "rough": 0.5},
 }
 
 
@@ -257,7 +261,7 @@ def inline_engine(spec):
     for x in xs:
         block = block.cut(cyl(bore / 2 + 0.6, deck + 2, (x, 0, 0)))
     ribs = [box(10, 8, deck - 60, (x + pitch / 2, sg * (W / 2 + 18), (deck + 40) / 2)) for x in xs[:-1] for sg in (-1, 1)]
-    P("block", "Cylinder block", "Structure", "castIron" if diesel else "aluminium", comp([block] + ribs),
+    P("block", "Cylinder block", "Structure", "truckPaint" if diesel else "aluminium", comp([block] + ribs),
       "%d bores of %d mm in one casting; the deck sits %.0f mm above the crank axis." % (n, bore, deck))
 
     pan = loft_rect(-L / 2 + 8, L / 2 - 8, (W + 20) / 2, zb, zb - (130 if diesel else 105), (W - 30) / 2)
@@ -267,7 +271,7 @@ def inline_engine(spec):
     head = box(L - 4, W + 18, hh, (0, 0, deck + hh / 2))
     for x in xs:
         head = head.cut(cyl(bore / 2 - 2, 8, (x, 0, deck - 1)))  # combustion chamber recess
-    P("head", "Cylinder head", "Structure", "aluminium", head,
+    P("head", "Cylinder head", "Structure", "truckPaint" if diesel else "aluminium", head,
       "Closes the bores; carries the valves, ports and %s." % ("injectors" if diesel else "spark plugs"))
 
     cz = deck + hh + 22
@@ -277,7 +281,7 @@ def inline_engine(spec):
         cover = cover.makeFillet(14, [e for e in cover.Edges if e.BoundBox.ZMax > deck + hh + cover_h - 1])
     except Exception:
         pass
-    P("cover", "Cam cover", "Valvetrain", "black" if diesel else "paint", cover,
+    P("cover", "Cam cover", "Valvetrain", "black" if diesel else "carPaint", cover,
       "Seals the valvetrain and keeps the oil mist in.")
 
     cam_ys = [0] if diesel else [-bore * 0.26, bore * 0.26]
@@ -342,7 +346,7 @@ def inline_engine(spec):
           "Charge air from the intercooler is shared out to all %d cylinders." % n)
     else:
         throttle = cyl(bore * 0.38, 70, (L * 0.46, yh + 110, zport + 105), (1, 0, 0))
-        P("intake", "Intake manifold", "Air", "black", comp(runners + [plenum]),
+        P("intake", "Intake manifold", "Air", "carPaint", comp(runners + [plenum]),
           "Equal-length runners share the plenum's air between the %d cylinders." % n)
         P("throttle", "Throttle body", "Air", "aluminium", throttle, "The driver's foot: a butterfly valve metering the air.")
     # Exhaust (-Y)
@@ -366,7 +370,7 @@ def inline_engine(spec):
           "Oil-fed bearings let the shaft spin at well over 100,000 rpm.")
         cooler = pipe([(tx + 60, ty, tz + 70), (tx + 60, ty, deck + hh + 140), (L / 2 + 60, 0, deck + hh + 140),
                        (L / 2 + 60, yh + 110, zport + 105), (L * 0.45, yh + 110, zport + 105)], 38)
-        P("chargepipe", "Charge-air pipe", "Air", "blue", cooler,
+        P("chargepipe", "Charge-air pipe", "Air", "black", cooler,
           "Carries compressed air from the turbo, via the intercooler, to the intake.")
         injectors = [comp([cyl(9, 70, (x, 0, deck + hh + cover_h - 20)), cyl(13, 28, (x, 0, deck + hh + cover_h + 30))]) for x in xs]
         rail = cyl(10, L * 0.85, (-L * 0.42, 40, deck + hh + cover_h + 30), (1, 0, 0))
@@ -377,7 +381,7 @@ def inline_engine(spec):
         bell = bell.cut(Part.makeCone(fw_r + 30, fw_r + 15, 112, V(flywheel_x + 21, 0, 0), V(-1, 0, 0)))
         P("bellhousing", "Flywheel housing", "Structure", "castIron", bell, "Bolts the engine to the gearbox around the flywheel.")
         filt = cyl(48, 150, (L * 0.15, yh + 15, zb - 20), (0, 0.4, -0.9))
-        P("oilfilter", "Oil filter", "Lubrication", "paint", filt, "Strains the oil before it reaches the bearings.")
+        P("oilfilter", "Oil filter", "Lubrication", "ceramic", filt, "Strains the oil before it reaches the bearings.")
     else:
         heads = [pipe([(x, -yh + 2, zport), (x, -yh - 55, zport - 10), (x * 0.8, -yh - 80, zport - 120),
                        (x * 0.25, -yh - 88, zport - 215), (0, -yh - 90, zport - 250)], bore * 0.17) for x in xs]
@@ -389,7 +393,7 @@ def inline_engine(spec):
         alt = comp([cyl(62, 110, (L / 2 - 120, yh + 40, zb + 120), (1, 0, 0)), cyl(28, 25, (L / 2 - 10, yh + 40, zb + 120), (1, 0, 0))])
         P("alternator", "Alternator", "Accessories", "aluminium", alt, "Belt-driven generator that charges the battery.")
         filt = cyl(42, 95, (L * 0.1, -W / 2 - 30, zb + 40), (0, -0.5, -0.86))
-        P("oilfilter", "Oil filter", "Lubrication", "blue", filt, "Strains the oil before it reaches the bearings.")
+        P("oilfilter", "Oil filter", "Lubrication", "carPaint", filt, "Strains the oil before it reaches the bearings.")
 
     tcover = box(30, W - 10, deck + hh - zb, (L / 2 + 13, 0, (deck + hh + zb) / 2))
     P("timingcover", "Timing cover", "Valvetrain", "black" if diesel else "aluminium", tcover,
@@ -428,7 +432,7 @@ def radial_engine(spec):
     P("crankcase", "Crankcase", "Structure", "olive", comp([case] + bosses),
       "Two-piece drum carrying all %d cylinders around a single crank throw." % n)
     nose = Part.makeCone(Rc - 30, 110, 170, V(0, 100, 0), V(*k))
-    P("nosecase", "Nose case", "Propeller drive", "olive", nose, "Houses the thrust bearing that carries the propeller's pull.")
+    P("nosecase", "Nose case", "Propeller drive", "aeroAmber", nose, "Houses the thrust bearing that carries the propeller's pull.")
     rear = comp([cyl(Rc - 40, 110, (0, -210, 0), k), cyl(45, 120, (110, -330, 70), k), cyl(45, 120, (-110, -330, 70), k)])
     P("accessory", "Accessory case and magnetos", "Ignition", "black", rear,
       "Two magnetos make their own spark: each cylinder has two plugs, so either can fail.")
@@ -484,7 +488,7 @@ def radial_engine(spec):
     py = 300
     hub = comp([cyl(55, 160, (0, 260, 0), k), cyl(95, 90, (0, py - 45, 0), k)])
     spinner = Part.makeCone(110, 4, 200, V(0, py + 40, 0), V(*k))
-    blades = []
+    blades, tips = [], []
     R = spec["prop_r"]
     for b in range(3):
         secs = []
@@ -503,14 +507,21 @@ def radial_engine(spec):
             bs.interpolate(pts, PeriodicFlag=True)
             w = Part.Wire([bs.toShape()])
             secs.append(w)
-        blade = Part.makeLoft(secs, True)
-        blade.rotate(V(0, py, 0), V(*k), b * 120)
+        blade = Part.makeLoft(secs[:5], True)
+        tip = Part.makeLoft(secs[4:], True)
+        for s_ in (blade, tip):
+            s_.rotate(V(0, py, 0), V(*k), b * 120)
         blades.append(blade)
+        tips.append(tip)
     P("propeller", "Propeller", "Propeller drive", "black", comp(blades + [hub]),
-      "Three blades, %.1f m across, turned directly by the crankshaft." % (2 * R / 1000),
+      "Three blades, %.1f m across with their painted tips, turned directly by the crankshaft." % (2 * R / 1000),
       extras={"spin": {"axis": glb.dir_to_gltf(k), "ratio": 1}})
     parts[-1]["tol"] = 3.0  # B-spline blades tessellate very finely at the default deflection
-    P("spinner", "Spinner", "Propeller drive", "aluminium", spinner, "Smooths the airflow over the hub and into the cowl.",
+    P("proptips", "Propeller tips", "Propeller drive", "aeroAmber", comp(tips),
+      "Painted tips make the spinning disc visible to ground crew.",
+      extras={"spin": {"axis": glb.dir_to_gltf(k), "ratio": 1}})
+    parts[-1]["tol"] = 3.0
+    P("spinner", "Spinner", "Propeller drive", "aeroAmber", spinner, "Smooths the airflow over the hub and into the cowl.",
       extras={"spin": {"axis": glb.dir_to_gltf(k), "ratio": 1}})
 
     kinematics = {"r": glb.SCALE * r, "l": glb.SCALE * l, "origin": glb.to_gltf((0, 0, 0)),
